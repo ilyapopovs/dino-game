@@ -1,8 +1,17 @@
 import './style.css'
+import { DrawService } from './drawService'
 
-const app = document.querySelector<HTMLDivElement>('#app')!
+const canvas = document.getElementById('board') as HTMLCanvasElement
+const context = canvas.getContext('2d')!
+const startButton = document.getElementById('start-btn')!
 
-app.innerHTML = `
-  <h1>Hello Vite!</h1>
-  <a href="https://vitejs.dev/guide/features.html" target="_blank">Documentation</a>
-`
+const canvasSize = { width: 500, height: 500 }
+const playerSize = { width: 50, height: 100, jump: 150 }
+const playerBasePosition = { x: 100, y: canvasSize.height - 150 }
+
+const drawService = new DrawService(context, { playerSize })
+drawService.drawMesh(500, 500, 50)
+
+startButton.onclick = () => {
+  drawService.drawPlayer(playerBasePosition)
+}
