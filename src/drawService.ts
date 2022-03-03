@@ -1,4 +1,5 @@
-import { Dot, ObjectSizes, PlayerSize } from './types'
+import { PLAYER_BASE_X } from './main'
+import { CanvasSize, PlayerSize } from './types'
 
 /**
  * Logic for drawing in-game objects
@@ -6,31 +7,61 @@ import { Dot, ObjectSizes, PlayerSize } from './types'
  */
 export class DrawService {
   private context: CanvasRenderingContext2D
+  private canvasSize: CanvasSize
   private playerSize: PlayerSize
 
-  constructor(context: CanvasRenderingContext2D, { playerSize }: ObjectSizes) {
+  constructor(
+    context: CanvasRenderingContext2D,
+    canvasSize: CanvasSize,
+    playerSize: PlayerSize,
+  ) {
     this.context = context
+    this.canvasSize = canvasSize
     this.playerSize = playerSize
   }
 
-  drawMesh(width: number, height: number, interval: number) {
+  clear() {
+    this.context.fillStyle = 'white'
+    this.context.fillRect(0, 0, this.canvasSize.width, this.canvasSize.height)
+  }
+
+  drawMesh(interval: number = 50) {
     const c = this.context
-    for (let x = interval; x < width; x += interval) {
-      for (let y = interval; y < height; y += interval) {
+    c.lineWidth = 0.1
+    c.strokeStyle = 'gray'
+
+    for (let x = interval; x < this.canvasSize.width; x += interval) {
+      for (let y = interval; y < this.canvasSize.height; y += interval) {
         c.beginPath()
         c.moveTo(x, 0)
-        c.lineTo(x, height)
+        c.lineTo(x, this.canvasSize.height)
         c.moveTo(0, y)
-        c.lineTo(width, y)
+        c.lineTo(this.canvasSize.width, y)
         c.closePath()
-        c.lineWidth = 0.1
-        c.strokeStyle = 'white'
         c.stroke()
       }
     }
   }
 
-  drawPlayer({ x, y }: Dot) {
-    this.context.fillRect(x, y, this.playerSize.width, -this.playerSize.height)
+  drawPlayer(y: number) {
+    this.context.fillStyle = 'black'
+    this.context.fillRect(
+      PLAYER_BASE_X,
+      y,
+      this.playerSize.width,
+      -this.playerSize.height,
+    )
+  }
+
+  drawGround(y: number) {
+    const c = this.context
+    c.lineWidth = 1
+    c.strokeStyle = 'black'
+
+    c.beginPath()
+    c.moveTo(0, y)
+    c.lineTo(this.canvasSize.width, y)
+    c.closePath()
+    c.stroke()
   }
 }

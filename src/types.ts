@@ -2,13 +2,11 @@ export type Dot = {
   x: number
   y: number
 }
-
-export type PlayerSize = {
+export type Size = {
   width: number
   height: number
-  jump: number
 }
 
-export type ObjectSizes = {
-  playerSize: PlayerSize
-}
+export type CanvasSize = Size
+
+export type PlayerSize = Size
