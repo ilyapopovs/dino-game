@@ -43,16 +43,6 @@ export class DrawService {
     }
   }
 
-  drawPlayer(y: number) {
-    this.context.fillStyle = 'black'
-    this.context.fillRect(
-      PLAYER_BASE_X,
-      y,
-      this.playerSize.width,
-      -this.playerSize.height,
-    )
-  }
-
   drawGround(y: number) {
     const c = this.context
     c.lineWidth = 1
@@ -63,5 +53,24 @@ export class DrawService {
     c.lineTo(this.canvasSize.width, y)
     c.closePath()
     c.stroke()
+  }
+
+  drawPlayer(y: number) {
+    this.context.fillStyle = 'black'
+    this.context.fillRect(
+      PLAYER_BASE_X,
+      y,
+      this.playerSize.width,
+      -this.playerSize.height,
+    )
+  }
+
+  drawObstacles(obstacles: any[]) {
+    const c = this.context
+    c.fillStyle = 'black'
+
+    obstacles.forEach((obstacle) =>
+      c.fillRect(obstacle.x, obstacle.y, obstacle.width, -obstacle.height),
+    )
   }
 }
