@@ -11,7 +11,6 @@ import {
 
 // DOM bindings
 const startButton = document.getElementById('start-btn')!
-const jumpButton = document.getElementById('jump-btn')!
 const highScoreSpan = document.getElementById('high-score')!
 const scoreSpan = document.getElementById('score')!
 const canvas = document.getElementById('board') as HTMLCanvasElement
@@ -27,7 +26,7 @@ export const PLAYER_BASE_Y = CANVAS_H - 150
 export const JUMP_SPEED = 20
 export const GRAVITY = 1
 export const SCORE_PER_W = 10 / 700
-export const SCORE_PER_COLLISION = 25
+export const SCORE_PER_COLLISION = 25 // allows infinite score at a certain speed - good enough for MVP, but better to make dynamic
 export const OBJECT_ACCEL = 0.002
 export const OBJECT_BASE_SPEED = 5
 export const OBSTACLE_W = 50
@@ -54,16 +53,16 @@ let interval: number = 0
 let state: any = null
 
 startButton.onclick = () => {
+  restartGame()
+  startButton.blur()
+}
+
+function restartGame() {
   clearInterval(interval)
   startButton.innerText = 'RESTART'
   state = { ...INITIAL_STATE }
   interval = setInterval(tick, (1 / TICKS_PER_SEC) * 1000)
 }
-
-/*
- * todo:
- * bind jump on canvas click & spacebar
- */
 
 function redraw() {
   clear()
@@ -81,8 +80,31 @@ function tick() {
   scoreSpan.innerText = Math.floor(state.score).toString()
 }
 
-jumpButton.onclick = () => {
+function jump() {
   if (state.player.y === PLAYER_BASE_Y) {
     state.player.speed = JUMP_SPEED
   }
 }
+
+// Key bindings
+let spacebarCallback = () => {
+  interval ? jump() : restartGame()
+  spacebarCallback = jump
+}
+
+document.addEventListener('keydown', (e) => {
+  if (e.code === 'Space') {
+    return spacebarCallback()
+  }
+
+  if (e.code === 'KeyR') {
+    return restartGame()
+  }
+
+  if (['ShiftLeft', 'ShiftRight', 'ArrowUp', 'KeyJ'].includes(e.code)) {
+    return jump()
+  }
+})
+
+canvas.addEventListener('touchstart', () => spacebarCallback())
+canvas.addEventListener('mousedown', () => spacebarCallback())
