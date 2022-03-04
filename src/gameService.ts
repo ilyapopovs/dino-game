@@ -11,17 +11,22 @@ import {
   OBSTACLE_W,
   PARTICLE_SPAWN_CHANCE,
   PARTICLE_SPREAD,
+  PLAYER_BASE_X,
   PLAYER_BASE_Y,
+  PLAYER_W,
+  SCORE_PER_COLLISION,
   SCORE_PER_W,
 } from './main'
 
 export function recalculateState(state: any) {
   state.objectSpeed += OBJECT_ACCEL
   state.score += state.objectSpeed * SCORE_PER_W
+  state.highScore = Math.max(state.score, state.highScore)
   recalculatePlayerPosition(state)
   removePassedObstacles(state)
   trySpawnObstacle(state)
   recalculateObstaclePositions(state)
+  checkCollisions(state)
   removePassedParticles(state)
   trySpawnParticles(state)
   recalculateParticlePositions(state)
@@ -45,6 +50,7 @@ function trySpawnObstacle(state: any) {
       y: PLAYER_BASE_Y,
       width: OBSTACLE_W,
       height: OBSTACLE_H,
+      isColliding: false,
     })
   }
 }
@@ -52,6 +58,27 @@ function trySpawnObstacle(state: any) {
 function recalculateObstaclePositions(state: any) {
   for (const obstacle of state.obstacles) {
     obstacle.x -= state.objectSpeed
+  }
+}
+
+function checkCollisions(state: any) {
+  for (const obstacle of state.obstacles) {
+    let isCollisionDetected = false
+
+    if (
+      ((obstacle.x > PLAYER_BASE_X && obstacle.x < PLAYER_BASE_X + PLAYER_W) ||
+        (obstacle.x + obstacle.width > PLAYER_BASE_X &&
+          obstacle.x + obstacle.width < PLAYER_BASE_X + PLAYER_W)) &&
+      obstacle.y - obstacle.height < state.player.y
+    ) {
+      isCollisionDetected = true
+    }
+
+    if (isCollisionDetected && !obstacle.isColliding) {
+      state.score -= SCORE_PER_COLLISION
+    }
+
+    obstacle.isColliding = isCollisionDetected
   }
 }
 

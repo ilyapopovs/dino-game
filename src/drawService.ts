@@ -45,8 +45,9 @@ export function drawGround(y: number) {
 }
 
 export function drawParticles(particles: any[]) {
+  c.fillStyle = 'black'
+
   particles.forEach((particle) => {
-    c.fillStyle = 'black'
     c.fillRect(particle.x, particle.y, particle.size, particle.size)
   })
 }
@@ -57,9 +58,8 @@ export function drawPlayer(y: number) {
 }
 
 export function drawObstacles(obstacles: any[]) {
-  c.fillStyle = 'black'
-
-  obstacles.forEach((obstacle) =>
-    c.fillRect(obstacle.x, obstacle.y, obstacle.width, -obstacle.height),
-  )
+  obstacles.forEach((obstacle) => {
+    c.fillStyle = obstacle.isColliding ? 'red' : 'black'
+    c.fillRect(obstacle.x, obstacle.y, obstacle.width, -obstacle.height)
+  })
 }

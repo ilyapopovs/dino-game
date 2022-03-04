@@ -11,6 +11,7 @@ import {
 
 // DOM bindings
 const jumpButton = document.getElementById('jump-btn')!
+const highScoreSpan = document.getElementById('high-score')!
 const scoreSpan = document.getElementById('score')!
 const canvas = document.getElementById('board') as HTMLCanvasElement
 export const context = canvas.getContext('2d')!
@@ -25,6 +26,7 @@ export const PLAYER_BASE_Y = CANVAS_H - 150
 export const JUMP_SPEED = 20
 export const GRAVITY = 1
 export const SCORE_PER_W = 10 / 700
+export const SCORE_PER_COLLISION = 25
 export const OBJECT_ACCEL = 0.002
 export const OBJECT_BASE_SPEED = 5
 export const OBSTACLE_W = 50
@@ -41,6 +43,7 @@ const state = {
   },
   isGameOver: false,
   score: 0,
+  highScore: 0,
   objectSpeed: OBJECT_BASE_SPEED,
   obstacles: [],
   particles: [],
@@ -58,13 +61,14 @@ const redraw = () => {
   // drawMesh()
   drawGround(PLAYER_BASE_Y)
   drawParticles(state.particles)
-  drawPlayer(state.player.y)
   drawObstacles(state.obstacles)
+  drawPlayer(state.player.y)
 }
 
 const tick = () => {
   recalculateState(state)
   redraw()
+  highScoreSpan.innerText = Math.floor(state.highScore).toString()
   scoreSpan.innerText = Math.floor(state.score).toString()
 }
 
