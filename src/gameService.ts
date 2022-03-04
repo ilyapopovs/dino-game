@@ -12,10 +12,12 @@ import {
   PARTICLE_SPAWN_CHANCE,
   PARTICLE_SPREAD,
   PLAYER_BASE_Y,
+  SCORE_PER_W,
 } from './main'
 
 export function recalculateState(state: any) {
-  state.obstacleSpeed += OBJECT_ACCEL
+  state.objectSpeed += OBJECT_ACCEL
+  state.score += state.objectSpeed * SCORE_PER_W
   recalculatePlayerPosition(state)
   removePassedObstacles(state)
   trySpawnObstacle(state)
@@ -49,7 +51,7 @@ function trySpawnObstacle(state: any) {
 
 function recalculateObstaclePositions(state: any) {
   for (const obstacle of state.obstacles) {
-    obstacle.x -= state.obstacleSpeed
+    obstacle.x -= state.objectSpeed
   }
 }
 
@@ -72,6 +74,6 @@ function trySpawnParticles(state: any) {
 
 function recalculateParticlePositions(state: any) {
   for (const particle of state.particles) {
-    particle.x -= state.obstacleSpeed
+    particle.x -= state.objectSpeed
   }
 }
