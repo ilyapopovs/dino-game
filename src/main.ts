@@ -37,15 +37,7 @@ export const PARTICLE_SPAWN_CHANCE = 0.05
 export const PARTICLE_SPREAD = 50
 const TICKS_PER_SEC = 60
 
-let interval: number = 0
-
-startButton.onclick = () => {
-  clearInterval(interval)
-  startButton.innerText = 'RESTART'
-  interval = setInterval(tick, (1 / TICKS_PER_SEC) * 1000)
-}
-
-const state = {
+const INITIAL_STATE = {
   player: {
     y: PLAYER_BASE_Y,
     speed: 0,
@@ -56,6 +48,16 @@ const state = {
   objectSpeed: OBJECT_BASE_SPEED,
   obstacles: [],
   particles: [],
+}
+
+let interval: number = 0
+let state: any = null
+
+startButton.onclick = () => {
+  clearInterval(interval)
+  startButton.innerText = 'RESTART'
+  state = { ...INITIAL_STATE }
+  interval = setInterval(tick, (1 / TICKS_PER_SEC) * 1000)
 }
 
 /*
