@@ -62,7 +62,6 @@ startButton.onclick = () => {
 
 /*
  * todo:
- * add start/restart buttons
  * bind jump on canvas click & spacebar
  */
 
