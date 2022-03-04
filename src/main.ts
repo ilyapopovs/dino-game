@@ -1,24 +1,31 @@
 import './style.css'
-import { DrawService } from './drawService'
 import { recalculateState } from './gameService'
-import type { CanvasSize, PlayerSize } from './types'
+import {
+  clear,
+  drawGround,
+  drawMesh,
+  drawObstacles,
+  drawPlayer,
+} from './drawService'
 
 // DOM bindings
-const canvas = document.getElementById('board') as HTMLCanvasElement
-const context = canvas.getContext('2d')!
 const jumpButton = document.getElementById('jump-btn')!
+const canvas = document.getElementById('board') as HTMLCanvasElement
+export const context = canvas.getContext('2d')!
 
 // Settings
-export const canvasSize: CanvasSize = { width: 700, height: 500 }
-export const playerSize: PlayerSize = { width: 50, height: 100 }
+export const CANVAS_W = 700
+export const CANVAS_H = 500
+export const PLAYER_W = 50
+export const PLAYER_H = 100
 export const PLAYER_BASE_X = 100
-export const PLAYER_BASE_Y = canvasSize.height - 150
+export const PLAYER_BASE_Y = CANVAS_H - 150
 export const JUMP_SPEED = 20
 export const GRAVITY = 1
-export const OBSTACLE_WIDTH = 50
-export const OBSTACLE_HEIGHT = 50
+export const OBSTACLE_W = 50
+export const OBSTACLE_H = 50
 export const OBSTACLE_SPEED = 5
-export const OBSTACLE_ACCEL = 0.001
+export const OBSTACLE_ACCEL = 0.002
 export const OBSTACLE_SPAWN_CHANCE = 0.01
 const TICKS_PER_SEC = 60
 
@@ -32,14 +39,21 @@ const state = {
   obstacles: [],
 }
 
-const drawService = new DrawService(context, canvasSize, playerSize)
+/*
+ * todo:
+ * add particles on the ground
+ * add score - per X (e.g. 700 X = 10 points)
+ * add hit detection - e.g. -50 points per hit
+ * add start/restart buttons
+ * bind jump on canvas click & spacebar
+ */
 
 const redraw = () => {
-  drawService.clear()
-  // drawService.drawMesh()
-  drawService.drawGround(PLAYER_BASE_Y)
-  drawService.drawPlayer(state.player.y)
-  drawService.drawObstacles(state.obstacles)
+  clear()
+  drawMesh()
+  drawGround(PLAYER_BASE_Y)
+  drawPlayer(state.player.y)
+  drawObstacles(state.obstacles)
 }
 
 const tick = () => {

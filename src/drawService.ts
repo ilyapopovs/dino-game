@@ -1,76 +1,58 @@
-import { PLAYER_BASE_X } from './main'
-import { CanvasSize, PlayerSize } from './types'
-
-/**
+/*
  * Logic for drawing in-game objects
- *
  */
-export class DrawService {
-  private context: CanvasRenderingContext2D
-  private canvasSize: CanvasSize
-  private playerSize: PlayerSize
 
-  constructor(
-    context: CanvasRenderingContext2D,
-    canvasSize: CanvasSize,
-    playerSize: PlayerSize,
-  ) {
-    this.context = context
-    this.canvasSize = canvasSize
-    this.playerSize = playerSize
-  }
+import {
+  CANVAS_H,
+  CANVAS_W,
+  context as c,
+  PLAYER_BASE_X,
+  PLAYER_H,
+  PLAYER_W,
+} from './main'
 
-  clear() {
-    this.context.fillStyle = 'white'
-    this.context.fillRect(0, 0, this.canvasSize.width, this.canvasSize.height)
-  }
+export function clear() {
+  c.fillStyle = 'white'
+  c.fillRect(0, 0, CANVAS_W, CANVAS_H)
+}
 
-  drawMesh(interval: number = 50) {
-    const c = this.context
-    c.lineWidth = 0.1
-    c.strokeStyle = 'gray'
+export function drawMesh(interval: number = 50) {
+  c.lineWidth = 0.1
+  c.strokeStyle = 'gray'
 
-    for (let x = interval; x < this.canvasSize.width; x += interval) {
-      for (let y = interval; y < this.canvasSize.height; y += interval) {
-        c.beginPath()
-        c.moveTo(x, 0)
-        c.lineTo(x, this.canvasSize.height)
-        c.moveTo(0, y)
-        c.lineTo(this.canvasSize.width, y)
-        c.closePath()
-        c.stroke()
-      }
+  for (let x = interval; x < CANVAS_W; x += interval) {
+    for (let y = interval; y < CANVAS_H; y += interval) {
+      c.beginPath()
+      c.moveTo(x, 0)
+      c.lineTo(x, CANVAS_H)
+      c.moveTo(0, y)
+      c.lineTo(CANVAS_W, y)
+      c.closePath()
+      c.stroke()
     }
   }
+}
 
-  drawGround(y: number) {
-    const c = this.context
-    c.lineWidth = 1
-    c.strokeStyle = 'black'
+export function drawGround(y: number) {
+  c.lineWidth = 1
+  c.strokeStyle = 'black'
 
-    c.beginPath()
-    c.moveTo(0, y)
-    c.lineTo(this.canvasSize.width, y)
-    c.closePath()
-    c.stroke()
-  }
+  c.beginPath()
+  c.moveTo(0, y)
+  c.lineTo(CANVAS_W, y)
+  c.closePath()
+  c.stroke()
+}
 
-  drawPlayer(y: number) {
-    this.context.fillStyle = 'black'
-    this.context.fillRect(
-      PLAYER_BASE_X,
-      y,
-      this.playerSize.width,
-      -this.playerSize.height,
-    )
-  }
+export function drawPlayer(y: number) {
+  c.fillStyle = 'black'
+  c.fillRect(PLAYER_BASE_X, y, PLAYER_W, -PLAYER_H)
+}
 
-  drawObstacles(obstacles: any[]) {
-    const c = this.context
-    c.fillStyle = 'black'
+export function drawObstacles(obstacles: any[]) {
+  c.fillStyle = 'black'
 
-    obstacles.forEach((obstacle) =>
-      c.fillRect(obstacle.x, obstacle.y, obstacle.width, -obstacle.height),
-    )
-  }
+  obstacles.forEach((obstacle) =>
+    c.fillRect(obstacle.x, obstacle.y, obstacle.width, -obstacle.height),
+  )
 }

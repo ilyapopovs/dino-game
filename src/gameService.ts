@@ -3,12 +3,12 @@
  */
 
 import {
-  canvasSize,
+  CANVAS_W,
   GRAVITY,
   OBSTACLE_ACCEL,
-  OBSTACLE_HEIGHT,
+  OBSTACLE_H,
   OBSTACLE_SPAWN_CHANCE,
-  OBSTACLE_WIDTH,
+  OBSTACLE_W,
   PLAYER_BASE_Y,
 } from './main'
 
@@ -33,10 +33,10 @@ function removePassedObstacles(state: any) {
 function trySpawnObstacle(state: any) {
   if (Math.random() < OBSTACLE_SPAWN_CHANCE) {
     state.obstacles.push({
-      x: canvasSize.width,
+      x: CANVAS_W,
       y: PLAYER_BASE_Y,
-      width: OBSTACLE_WIDTH,
-      height: OBSTACLE_HEIGHT,
+      width: OBSTACLE_W,
+      height: OBSTACLE_H,
     })
   }
 }
