@@ -10,6 +10,7 @@ import {
 } from './drawService'
 
 // DOM bindings
+const startButton = document.getElementById('start-btn')!
 const jumpButton = document.getElementById('jump-btn')!
 const highScoreSpan = document.getElementById('high-score')!
 const scoreSpan = document.getElementById('score')!
@@ -36,6 +37,14 @@ export const PARTICLE_SPAWN_CHANCE = 0.05
 export const PARTICLE_SPREAD = 50
 const TICKS_PER_SEC = 60
 
+let interval: number = 0
+
+startButton.onclick = () => {
+  clearInterval(interval)
+  startButton.innerText = 'RESTART'
+  interval = setInterval(tick, (1 / TICKS_PER_SEC) * 1000)
+}
+
 const state = {
   player: {
     y: PLAYER_BASE_Y,
@@ -55,7 +64,7 @@ const state = {
  * bind jump on canvas click & spacebar
  */
 
-const redraw = () => {
+function redraw() {
   clear()
   // drawMesh()
   drawGround(PLAYER_BASE_Y)
@@ -64,14 +73,12 @@ const redraw = () => {
   drawPlayer(state.player.y)
 }
 
-const tick = () => {
+function tick() {
   recalculateState(state)
   redraw()
   highScoreSpan.innerText = Math.floor(state.highScore).toString()
   scoreSpan.innerText = Math.floor(state.score).toString()
 }
-
-setInterval(tick, (1 / TICKS_PER_SEC) * 1000)
 
 jumpButton.onclick = () => {
   if (state.player.y === PLAYER_BASE_Y) {
