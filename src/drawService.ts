@@ -44,6 +44,13 @@ export function drawGround(y: number) {
   c.stroke()
 }
 
+export function drawParticles(particles: any[]) {
+  particles.forEach((particle) => {
+    c.fillStyle = 'black'
+    c.fillRect(particle.x, particle.y, particle.size, particle.size)
+  })
+}
+
 export function drawPlayer(y: number) {
   c.fillStyle = 'black'
   c.fillRect(PLAYER_BASE_X, y, PLAYER_W, -PLAYER_H)

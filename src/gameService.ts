@@ -5,18 +5,24 @@
 import {
   CANVAS_W,
   GRAVITY,
-  OBSTACLE_ACCEL,
+  OBJECT_ACCEL,
   OBSTACLE_H,
   OBSTACLE_SPAWN_CHANCE,
   OBSTACLE_W,
+  PARTICLE_SPAWN_CHANCE,
+  PARTICLE_SPREAD,
   PLAYER_BASE_Y,
 } from './main'
 
 export function recalculateState(state: any) {
+  state.obstacleSpeed += OBJECT_ACCEL
   recalculatePlayerPosition(state)
   removePassedObstacles(state)
   trySpawnObstacle(state)
   recalculateObstaclePositions(state)
+  removePassedParticles(state)
+  trySpawnParticles(state)
+  recalculateParticlePositions(state)
 }
 
 function recalculatePlayerPosition(state: any) {
@@ -45,5 +51,27 @@ function recalculateObstaclePositions(state: any) {
   for (const obstacle of state.obstacles) {
     obstacle.x -= state.obstacleSpeed
   }
-  state.obstacleSpeed += OBSTACLE_ACCEL
+}
+
+function removePassedParticles(state: any) {
+  state.particles = state.particles.filter(
+    (particle: any) => particle.x + particle.size > 0,
+  )
+}
+
+function trySpawnParticles(state: any) {
+  if (Math.random() < PARTICLE_SPAWN_CHANCE) {
+    const particleOffsetY = Math.ceil(Math.random() * PARTICLE_SPREAD + 10)
+    state.particles.push({
+      x: CANVAS_W,
+      y: PLAYER_BASE_Y + particleOffsetY,
+      size: Math.ceil(Math.random() * 3 + 1),
+    })
+  }
+}
+
+function recalculateParticlePositions(state: any) {
+  for (const particle of state.particles) {
+    particle.x -= state.obstacleSpeed
+  }
 }
