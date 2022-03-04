@@ -51,7 +51,6 @@ const state = {
 
 /*
  * todo:
- * add hit detection - e.g. -50 points per hit
  * add start/restart buttons
  * bind jump on canvas click & spacebar
  */
