@@ -16,7 +16,7 @@ import {
   PLAYER_W,
   SCORE_PER_COLLISION,
   SCORE_PER_W,
-} from './main'
+} from './consts'
 
 export function recalculateState(state: any) {
   state.objectSpeed += OBJECT_ACCEL

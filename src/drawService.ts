@@ -2,14 +2,8 @@
  * Logic for drawing in-game objects
  */
 
-import {
-  CANVAS_H,
-  CANVAS_W,
-  context as c,
-  PLAYER_BASE_X,
-  PLAYER_H,
-  PLAYER_W,
-} from './main'
+import { CANVAS_H, CANVAS_W, PLAYER_BASE_X, PLAYER_H, PLAYER_W } from './consts'
+import { context as c } from './main'
 
 export function clear() {
   c.fillStyle = 'white'
