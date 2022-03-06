@@ -25,7 +25,7 @@ worker.onmessage = (e: MessageEvent<State>) => redraw(e.data)
 
 function redraw(state: State) {
   clear()
-  drawMesh()
+  // drawMesh() // useful for development
   drawGround(PLAYER_BASE_Y)
   drawParticles(state.particles)
   drawObstacles(state.obstacles)
