@@ -8,7 +8,12 @@ import {
   drawParticles,
   drawPlayer,
 } from './drawService'
-import { ACTION_JUMP, ACTION_RESTART, PLAYER_BASE_Y } from './consts'
+import {
+  ACTION_JUMP,
+  ACTION_RESTART,
+  GROUND_OFFSET,
+  PLAYER_BASE_Y,
+} from './consts'
 import type { State } from './consts'
 
 // DOM bindings
@@ -26,7 +31,7 @@ worker.onmessage = (e: MessageEvent<State>) => redraw(e.data)
 function redraw(state: State) {
   clear()
   // drawMesh() // useful for development
-  drawGround(PLAYER_BASE_Y)
+  drawGround(PLAYER_BASE_Y - GROUND_OFFSET)
   drawParticles(state.particles)
   drawObstacles(state.obstacles)
   drawPlayer(state.player.y)

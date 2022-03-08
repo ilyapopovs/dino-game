@@ -90,7 +90,7 @@ function removePassedParticles(state: any) {
 
 function trySpawnParticles(state: any) {
   if (Math.random() < PARTICLE_SPAWN_CHANCE) {
-    const particleOffsetY = Math.ceil(Math.random() * PARTICLE_SPREAD + 10)
+    const particleOffsetY = Math.ceil(Math.random() * PARTICLE_SPREAD + 5)
     state.particles.push({
       x: CANVAS_W,
       y: PLAYER_BASE_Y + particleOffsetY,
