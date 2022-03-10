@@ -74,5 +74,5 @@ document.addEventListener('keydown', (e) => {
   }
 })
 
-canvas.addEventListener('touchstart', () => spacebarCallback())
+window.document.body.addEventListener('touchstart', () => spacebarCallback())
 canvas.addEventListener('mousedown', () => spacebarCallback())

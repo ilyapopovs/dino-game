@@ -2,12 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+  height: 100vh;
+}
+
 .container {
   max-width: 800px;
-  margin: 64px auto 0;
-  padding: 32px 0;
+  margin: 0 auto;
   color: #2c3e50;
-  @apply flex flex-col align-middle;
+  @apply flex flex-col align-middle py-16;
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

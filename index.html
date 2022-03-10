@@ -8,10 +8,9 @@
   </head>
   <body class="bg-gray-100">
     <div class="container">
-      <div>
-        <button id="start-btn" class="btn">START</button>
-        <span id="high-score"></span>
-        <span id="score"></span>
+      <div class="flex justify-between px-4 pb-2 text-2xl font-bold">
+        <div>High 🏆 <span id="high-score">0</span></div>
+        <div><span id="score">0</span> ⏱ Score</div>
       </div>
       <canvas
         id="board"
@@ -19,7 +18,15 @@
         height="500"
         class="bg-white rounded-2xl"
       ></canvas>
-      <div id="app"></div>
+      <div class="flex justify-center pt-8">
+        <button
+          id="start-btn"
+          class="px-4 py-2 bg-gray-900 text-white font-bold rounded-md"
+          style="min-width: 120px"
+        >
+          START
+        </button>
+      </div>
     </div>
     <script type="module" src="/src/main.ts"></script>
   </body>
