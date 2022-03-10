@@ -12,20 +12,21 @@
         <div>High 🏆 <span id="high-score">0</span></div>
         <div><span id="score">0</span> ⏱ Score</div>
       </div>
-      <canvas
-        id="board"
-        width="700"
-        height="500"
-        class="bg-white rounded-2xl"
-      ></canvas>
+      <canvas id="board" width="700" height="500" class="bg-white rounded-2xl">
+      </canvas>
       <div class="flex justify-center pt-8">
         <button
           id="start-btn"
           class="px-4 py-2 bg-gray-900 text-white font-bold rounded-md"
-          style="min-width: 120px"
+          style="min-width: 132px"
         >
-          START
+          <span class="hidden md:block">START</span>
+          <span class="block md:hidden">TAP TO PLAY</span>
         </button>
+      </div>
+      <div class="hidden md:block text-center pt-8 text-gray-500">
+        Click / Spacebar to <strong>jump</strong>, R to
+        <strong>restart</strong>
       </div>
     </div>
     <script type="module" src="/src/main.ts"></script>
