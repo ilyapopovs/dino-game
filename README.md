@@ -1,8 +1,10 @@
 # dino-game
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/581f319b-7119-4dfa-b755-0b783a7e6e29/deploy-status)](https://demo2.popovs.dev)
+
 Simplified clone of the Google Chrome's [Dinosaur Game](https://en.wikipedia.org/wiki/Dinosaur_Game), no libraries
 
-Check it out at [demo2.popovs.dev](demo2.popovs.dev)!
+Check it out at [demo2.popovs.dev](https://demo2.popovs.dev)!
 
 The original can be accessed at [chrome://dino](chrome://dino) in Chrome browser
 

@@ -4,14 +4,15 @@
 
 body {
   height: 100vh;
+  color: #2c3e50;
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  @apply bg-gray-100;
 }
 
 .container {
   max-width: 800px;
   margin: 0 auto;
-  color: #2c3e50;
   @apply flex flex-col align-middle py-16;
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
