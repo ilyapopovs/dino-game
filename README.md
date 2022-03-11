@@ -16,6 +16,8 @@ The main thread is listening for key presses and messages from the worker. \
 Messages from the worker trigger re-rendering. \
 Key presses send a message to the worker, making it update the state accordingly.
 
+![Diagram of Canvas, UI thread and Web Worker communicating](readme_assets/dino-drawio.jpg)
+
 ## Running locally
 
 - Start a dev server: `npm run dev`
